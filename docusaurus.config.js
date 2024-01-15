@@ -8,8 +8,8 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'My Site',
-    tagline: 'Dinosaurs are cool',
+    title: 'FlawFix',
+    tagline: 'ISO 27001 konformes Schwachstellenmanagement',
     favicon: 'img/favicon.ico',
 
     // Set the production url of your site here
@@ -66,9 +66,8 @@ const config = {
             // Replace with your project's social card
             image: 'img/docusaurus-social-card.jpg',
             navbar: {
-                title: 'My Site',
                 logo: {
-                    alt: 'My Site Logo',
+                    alt: 'FlawFix Logo',
                     src: 'img/logo.svg',
                 },
                 items: [
@@ -124,7 +123,7 @@ const config = {
                             },
                             {
                                 label: 'GitHub',
-                                href: 'https://github.com/facebook/docusaurus',
+                                href: 'https://github.com/l3montree-dev/flawfix',
                             },
                         ],
                     },
@@ -135,7 +134,16 @@ const config = {
                 theme: prismThemes.github,
                 darkTheme: prismThemes.dracula,
             },
+            announcementBar: {
+                id: 'support_us',
+                content:
+                    'FlawFix befindet sich derzeit in der Entwicklungsphase und ist noch nicht verfügbar.',
+                backgroundColor: '#FAD34C',
+                textColor: 'black',
+                isCloseable: false,
+            },
         }),
+
     plugins: [
         async function myPlugin(context, options) {
             return {

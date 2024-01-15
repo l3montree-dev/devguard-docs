@@ -1,29 +1,23 @@
 import clsx from 'clsx';
-import Link from '@docusaurus/Link';
+
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+
 
 import Heading from '@theme/Heading';
-import styles from './index.module.css';
 import React from 'react';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
+    <header className={clsx('dark:bg-white bg-black dark:text-black')}>
+      <div className="container text-center max-w-screen-lg py-20">
+        <Heading as="h1" className="hero__title text-6xl font-medium font-display">
+        ISO 27001 konformes<br/> Schwachstellenmanagement
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
+        <p className="hero__subtitle text-lg mt-10 opacity-75">Nahtlose Integration, umfassende Dokumentation. FlawFix als ISO 27001 konformes Schwachstellenmanagement passt sich perfekt in jede IT-Umgebung ein und gewährleistet die Mitigation von Schwachstellen und eine lückenlose Dokumentation der Sicherheitsprozesse.
+        </p>
+        
       </div>
     </header>
   );
@@ -37,7 +31,7 @@ export default function Home() {
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
+        
       </main>
     </Layout>
   );
