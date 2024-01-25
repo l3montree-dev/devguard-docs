@@ -1,0 +1,16 @@
+name: Software Composition analysis
+
+on: push
+
+jobs:
+  depscan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run OWASP Dep-Scan
+        uses: docker://ghcr.io/owasp-dep-scan/dep-scan:v5.2.2
+        with:
+          args: --src /github/workspace
