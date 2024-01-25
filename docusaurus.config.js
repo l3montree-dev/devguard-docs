@@ -68,7 +68,7 @@ const config = {
             navbar: {
                 logo: {
                     alt: 'FlawFix Logo',
-                    src: 'img/logo.svg',
+                    src: 'img/logo_horizontal.svg',
                 },
                 items: [
                     {
@@ -84,6 +84,11 @@ const config = {
                         position: 'right',
                     },
                 ],
+
+            },
+            colorMode: {
+                disableSwitch: true,
+                defaultMode: "light",
             },
             footer: {
                 style: 'dark',
