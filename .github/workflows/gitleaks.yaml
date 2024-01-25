@@ -13,13 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Gitleaks
-        run: |
-          wget -O gitleaks.tar.gz https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz
-          tar -xzvf gitleaks.tar.gz
-          chmod +x gitleaks
-          mv gitleaks /usr/local/bin/
-
       - name: Run Gitleaks Scan
         uses: docker://zricethezav/gitleaks:v8.18.1
         with:
