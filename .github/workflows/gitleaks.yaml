@@ -1,9 +1,6 @@
 name: Gitleaks Scan
 
-on:
-  push:
-    branches:
-      - main # Replace with the branch you want to trigger the workflow on
+on: push
 
 jobs:
   gitleaks:
@@ -16,4 +13,4 @@ jobs:
       - name: Run Gitleaks Scan
         uses: docker://zricethezav/gitleaks:v8.18.1
         with:
-          args: --verbose
+          args: detect --verbose
