@@ -68,7 +68,7 @@ export function Faqs() {
     <section
       id="faq"
       aria-labelledby="faq-title"
-      className="relative overflow-hidden bg-blue-100 py-20 sm:py-32"
+      className="relative overflow-hidden py-20 sm:py-32"
     >
       <div className="relative container">
         <div className="mx-auto max-w-2xl lg:mx-0">
@@ -82,14 +82,14 @@ export function Faqs() {
             If you cannot find the answer to your question here, please do not
             hesitate to contact our
             <a
-              className="underline text-yellow-600 inline-flex"
+              className="underline inline-flex"
               href="mailto:support@flawfix.dev"
             >
               Support-Team
             </a>{' '}
             or create an issue on{' '}
             <a
-              className="underline text-yellow-600 inline-flex"
+              className="underline inline-flex"
               href={'https://github.com/l3montree-dev/flawfix'}
             >
               GitHub

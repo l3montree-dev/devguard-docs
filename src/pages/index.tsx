@@ -52,7 +52,7 @@ export default function Home() {
       <main>
         <PrimaryFeatures />
 
-        <section className="bg-white">
+        <section className="bg-blue-950 text-white">
           <div className="container py-10">
             <div className="flex flex-row justify-center items-center">
               <div className="flex-col gap-4 flex items-center justify-center">
@@ -65,9 +65,14 @@ export default function Home() {
                   Welcome to the FlawFix community
                 </h2>
                 <div className="flex flex-row gap-4">
-                  <button className="bg-yellow-500 mt-6 hover:bg-yellow-600 transition-all text-black font-bold py-2 px-4 rounded">
+                  <a
+                    target="_blank"
+                    href="https://discord.gg/Pm4pcbtnsk"
+                    className="bg-yellow-500 mt-6 hover:bg-yellow-600 transition-all text-black hover:text-black hover:no-underline font-bold py-2 px-4 rounded"
+                    rel="noreferrer"
+                  >
                     Join the Discord
-                  </button>
+                  </a>
                   <a
                     target="_blank"
                     href="https://github.com/l3montree-dev/flawfix"
