@@ -80,7 +80,8 @@ jobs:
         with:
           name: docker-image
           path: .
-      - name: Login to Docker Registry
+      - name: Login and push
         uses: docker://gcr.io/go-containerregistry/crane
         with:
-          args: auth login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY_URL }} && crane push /gitlab/workspace/image.tar ${{ env.IMAGE_TAG }}
+          entrypoint: ""
+          args: crane auth login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io && crane push /gitlab/workspace/image.tar ${{ env.IMAGE_TAG }}
