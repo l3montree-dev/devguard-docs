@@ -54,7 +54,7 @@ jobs:
         with:
           args: --destination=${{ env.IMAGE_TAG }} --context=/github/workspace --dockerfile=/github/workspace/Dockerfile --no-push --tarPath /github/workspace/image.tar
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: image.tar
@@ -65,7 +65,7 @@ jobs:
     container: aquasec/trivy
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: .
@@ -76,12 +76,9 @@ jobs:
     needs: [build, trivy_scan, gitleaks, depscan, semgrep]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: .
       - name: Login and push
-        uses: docker://gcr.io/go-containerregistry/crane
-        with:
-          entrypoint: ""
-          args: crane auth login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io && crane push /gitlab/workspace/image.tar ${{ env.IMAGE_TAG }}
+        run: docker run --entrypoint "" gcr.io/go-containerregistry/crane crane auth login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io && crane push /gitlab/workspace/image.tar ${{ env.IMAGE_TAG }}
