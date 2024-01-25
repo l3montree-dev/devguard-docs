@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: Configure Git Exception
+        run: git config --global --add safe.directory /github/workspace
 
       - name: Run Gitleaks Scan
         uses: docker://zricethezav/gitleaks:v8.18.1
