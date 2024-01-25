@@ -82,4 +82,4 @@ jobs:
           path: .
       - uses: imjasonh/setup-crane@v0.1
       - name: Push Docker image to GitHub Container Registry
-        run: crane push /github/workspace/image.tar ${{ env.IMAGE_TAG }}
+        run: crane push image.tar ${{ env.IMAGE_TAG }}
