@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 
 import Heading from '@theme/Heading'
-import React from 'react'
-import { PrimaryFeatures } from '../components/PrimaryFeatures'
 import { Faqs } from '../components/Faqs'
+import { PrimaryFeatures } from '../components/PrimaryFeatures'
 
 function HomepageHeader() {
   return (
@@ -42,16 +40,14 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext()
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={`FlawFix - Open-Source ISO 27001 compliant Vulnerability Management`}
+      description="Empower your DevSecOps implementation with FlawFix's guided, error-proof approach. Simplify complex security integrations and embrace a culture of security-first development, effortlessly."
     >
       <HomepageHeader />
       <main>
         <PrimaryFeatures />
-
         <section className="bg-blue-950 text-white">
           <div className="container py-10">
             <div className="flex flex-row justify-center items-center">

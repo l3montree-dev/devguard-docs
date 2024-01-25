@@ -1,3 +1,4 @@
 docusaurus.config.js
 .eslintrc.js
 sidebars.js
+babel.config.js
