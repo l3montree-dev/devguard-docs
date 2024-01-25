@@ -17,8 +17,6 @@ jobs:
         uses: docker://gcr.io/kaniko-project/executor:v1.9.2
         with:
           args: --destination=${{ env.IMAGE_TAG }} --context=/github/workspace --dockerfile=/github/workspace/Dockerfile --no-push --tarPath /github/workspace/image.tar
-      - name: Save Docker image
-        run: docker save ${{ env.IMAGE_TAG }} -o image.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
