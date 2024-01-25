@@ -43,7 +43,6 @@ jobs:
       image: gcr.io/go-containerregistry/crane:debug
       options: --entrypoint=""
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v2
         with:
           name: docker-image
