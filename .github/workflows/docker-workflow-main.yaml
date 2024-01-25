@@ -3,7 +3,7 @@ name: Docker Workflow
 on:
   push:
     branches:
-      - main
+      - '*'
 
 env:
   IMAGE_TAG: ${{ github.repository }}:unstable
