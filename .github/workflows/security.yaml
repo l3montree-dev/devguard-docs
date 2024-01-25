@@ -1,4 +1,4 @@
-name: Gitleaks Scan
+name: Security Workflow
 
 on: push
 
