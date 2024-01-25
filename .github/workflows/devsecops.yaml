@@ -80,5 +80,6 @@ jobs:
         with:
           name: docker-image
           path: .
-      - name: Login and push
-        run: docker run --entrypoint "" gcr.io/go-containerregistry/crane crane auth login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io && crane push /gitlab/workspace/image.tar ${{ env.IMAGE_TAG }}
+      - uses: imjasonh/setup-crane@v0.1
+      - name: Push Docker image to GitHub Container Registry
+        run: crane push /github/workspace/image.tar ${{ env.IMAGE_TAG }}
