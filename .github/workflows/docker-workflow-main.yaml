@@ -24,7 +24,6 @@ jobs:
           path: image.tar
 
   trivy_scan:
-    if: github.event_name == 'push' && (github.ref_name == 'main' || startsWith(github.ref_name, 'refs/tags/'))
     needs: build
     runs-on: ubuntu-latest
     container: aquasec/trivy
