@@ -1,0 +1,63 @@
+name: Docker Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_TAG: ${{ github.repository }}:unstable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image_path: ${{ steps.build_output.outputs.image_path }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image with Kaniko
+        id: build_image
+        uses: GoogleContainerTools/kaniko-action@v2
+        with:
+          image: ${{ env.IMAGE_TAG }}
+          context: ${{ github.workspace }}
+          dockerfile: ${{ github.workspace }}/Dockerfile
+          noPush: true
+      - name: Save Docker image
+        run: docker save ${{ env.IMAGE_TAG }} -o image.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: docker-image
+          path: image.tar
+
+  trivy_scan:
+    if: github.event_name == 'push' && (github.ref_name == 'main' || startsWith(github.ref_name, 'refs/tags/'))
+    needs: build
+    runs-on: ubuntu-latest
+    container: aquasec/trivy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v2
+        with:
+          name: docker-image
+          path: .
+      - name: Scan the Docker image with Trivy
+        run: trivy image --exit-code 1 --severity CRITICAL --ignore-unfixed --no-progress --input image.tar
+
+  push:
+    needs: [build, trivy_scan]
+    runs-on: ubuntu-latest
+    container: 
+      image: gcr.io/go-containerregistry/crane:debug
+      options: --entrypoint=""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v2
+        with:
+          name: docker-image
+          path: .
+      - name: Login to Docker Registry
+        run: crane auth login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY_URL }}
+      - name: Push Docker image
+        run: crane push image.tar ${{ env.IMAGE_TAG }}

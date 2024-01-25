@@ -1,0 +1,40 @@
+name: Gitleaks Scan
+
+on: push
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Gitleaks Scan
+        run: |
+          docker run --rm -v $(pwd):/code zricethezav/gitleaks:v8.18.1 -s /code detect
+  
+  
+  depscan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run OWASP Dep-Scan
+        uses: docker://ghcr.io/owasp-dep-scan/dep-scan:v5.2.2
+        with:
+          args: --src /github/workspace
+
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Semgrep
+        uses: docker://returntocorp/semgrep
+        with:
+          args: semgrep scan /github/workspace
