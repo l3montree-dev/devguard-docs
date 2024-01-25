@@ -15,4 +15,4 @@ jobs:
 
       - name: Run Gitleaks Scan
         run: |
-          docker run --rm -v $(pwd):/code zricethezav/gitleaks:v8.18.1 --repo-path=/code detect
+          docker run --rm -v $(pwd):/code zricethezav/gitleaks:v8.18.1 -s /code detect
