@@ -39,15 +39,12 @@ jobs:
   push:
     needs: [build, trivy_scan]
     runs-on: ubuntu-latest
-    container: 
-      image: gcr.io/go-containerregistry/crane:debug
-      options: --entrypoint=""
     steps:
       - uses: actions/download-artifact@v2
         with:
           name: docker-image
           path: .
       - name: Login to Docker Registry
-        run: crane auth login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY_URL }}
-      - name: Push Docker image
-        run: crane push image.tar ${{ env.IMAGE_TAG }}
+        uses: docker://gcr.io/go-containerregistry/crane
+        with:
+          args: auth login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }} ${{ secrets.REGISTRY_URL }} && crane push /gitlab/workspace/image.tar ${{ env.IMAGE_TAG }}
