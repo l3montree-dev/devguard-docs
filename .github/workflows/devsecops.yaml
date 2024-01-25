@@ -1,4 +1,4 @@
-name: Docker Workflow
+name: DevSecOps Workflow
 
 on: push
 
@@ -6,6 +6,42 @@ env:
   IMAGE_TAG: ghcr.io/${{ github.repository }}:unstable
 
 jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Gitleaks Scan
+        run: |
+          docker run --rm -v $(pwd):/code zricethezav/gitleaks:v8.18.1 -s /code detect
+  
+  
+  depscan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run OWASP Dep-Scan
+        uses: docker://ghcr.io/owasp-dep-scan/dep-scan:v5.2.2
+        with:
+          args: --src /github/workspace
+
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Semgrep
+        uses: docker://returntocorp/semgrep
+        with:
+          args: semgrep scan /github/workspace
+
   build:
     runs-on: ubuntu-latest
     outputs:
@@ -37,7 +73,7 @@ jobs:
         run: trivy image --exit-code 1 --severity CRITICAL --ignore-unfixed --no-progress --input image.tar
 
   push:
-    needs: [build, trivy_scan]
+    needs: [build, trivy_scan, gitleaks, depscan, semgrep]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
