@@ -6,7 +6,7 @@ env:
   IMAGE_TAG: ghcr.io/${{ github.repository }}:unstable
 
 jobs:
-  gitleaks:
+  secret-scanning:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,12 +22,12 @@ jobs:
           sarif_file: gitleaks.sarif.json
           category: secret-scanning
   
-  depscan:
+  sca:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Run Trivy vulnerability scanner in tarball mode
+      - name: Run Trivy vulnerability scanner in fs mode
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
@@ -41,7 +41,7 @@ jobs:
           sarif_file: 'trivy-results.sarif'
           category: 'sca'
 
-  semgrep:
+  sast:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -57,7 +57,7 @@ jobs:
           sarif_file: semgrep.sarif.json
           category: sast
 
-  build:
+  build-container:
     runs-on: ubuntu-latest
     outputs:
       image_path: ${{ steps.build_output.outputs.image_path }}
@@ -77,7 +77,7 @@ jobs:
           name: docker-image
           path: image.tar
 
-  trivy_scan:
+  container-scanning:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -98,7 +98,7 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
           category: 'container-scanning'
-  push:
+  publish:
     needs: [build, trivy_scan, gitleaks, depscan, semgrep]
     runs-on: ubuntu-latest
     steps:
