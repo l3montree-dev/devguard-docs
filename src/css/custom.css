@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/Lexend/static/Lexend-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight:600;
+    font-display: swap;
+    src: url('/fonts/Lexend/static/Lexend-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight:700;
+    font-display: swap;
+    src: url('/fonts/Lexend/static/Lexend-Semibold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight:800;
+    font-display: swap;
+    src: url('/fonts/Lexend/static/Lexend-Bold.ttf') format('truetype');
+}
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to

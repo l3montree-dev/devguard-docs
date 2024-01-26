@@ -12,7 +12,7 @@ function HomepageHeader() {
       <div className="container relative text-center text-white max-w-screen-lg py-20">
         <Heading
           as="h1"
-          className="hero__title relative text-6xl font-medium font-display"
+          className="hero__title relative text-5xl md:text-6xl font-medium font-display"
         >
           Open-Source ISO 27001 compliant
           <br />{' '}
