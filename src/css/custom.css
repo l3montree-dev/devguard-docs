@@ -15,7 +15,7 @@
     font-style: normal;
     font-weight:600;
     font-display: swap;
-    src: url('/static/fonts/Lexend/Lexend-Medium.ttf') format('truetype');
+    src: url('../../static/fonts/Lexend/Lexend-Medium.ttf') format('truetype');
 }
 
 @font-face {
@@ -23,7 +23,7 @@
     font-style: normal;
     font-weight:700;
     font-display: swap;
-    src: url('/static/fonts/Lexend/Lexend-Semibold.ttf') format('truetype');
+    src: url('../../static/fonts/Lexend/Lexend-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
@@ -31,7 +31,7 @@
     font-style: normal;
     font-weight:800;
     font-display: swap;
-    src: url('/static/fonts/Lexend/Lexend-Bold.ttf') format('truetype');
+    src: url('../../static/fonts/Lexend/Lexend-Bold.ttf') format('truetype');
 }
 
 /**
