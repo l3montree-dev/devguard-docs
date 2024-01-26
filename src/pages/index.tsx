@@ -28,7 +28,7 @@ function HomepageHeader() {
         </p>
         <div className="flex justify-center mt-10">
           <a
-            href="/docs"
+            href="/docs/getting-started"
             className="bg-yellow-500 hover:no-underline hover:text-black hover:bg-yellow-600 transition-all text-black font-bold py-2 px-4 rounded"
           >
             Get Started
