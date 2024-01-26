@@ -20,22 +20,29 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: gitleaks.sarif.json
-          category: gitleaks
+          category: secret-scanning
   
   depscan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Run OWASP Dep-Scan
-        uses: docker://ghcr.io/owasp-dep-scan/dep-scan:v5.2.2
+      - name: Run Trivy vulnerability scanner in tarball mode
+        uses: aquasecurity/trivy-action@master
         with:
-          args: --src /github/workspace
+          scan-type: 'fs'
+          scan-ref: '.'
+          severity: 'CRITICAL,HIGH'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+          category: 'sca'
 
   semgrep:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,7 +55,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: semgrep.sarif.json
-          category: semgrep
+          category: sast
 
   build:
     runs-on: ubuntu-latest
@@ -90,6 +97,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'trivy-results.sarif'
+          category: 'container-scanning'
   push:
     needs: [build, trivy_scan, gitleaks, depscan, semgrep]
     runs-on: ubuntu-latest
