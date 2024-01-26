@@ -1,38 +1,19 @@
-# Ref: https://docusaurus.community/knowledge/deployment/docker/
+FROM node:18.16.0@sha256:c0a8990273163b3c17685bf98986c6e21d574cda0cbb97440147e9f73e71e973 as builder
 
-# Stage 1: Base image.
-## Start with a base image containing NodeJS so we can build Docusaurus.
-FROM node:lts as base
-## Disable colour output from yarn to make logs easier to read.
-ENV FORCE_COLOR=0
-## Enable corepack.
-RUN corepack enable
-## Set the working directory to `/opt/docusaurus`.
-WORKDIR /opt/docusaurus
+WORKDIR /usr/app/
 
-# Stage 2a: Development mode.
-FROM base as dev
-## Set the working directory to `/opt/docusaurus`.
-WORKDIR /opt/docusaurus
-## Expose the port that Docusaurus will run on.
+ENV NODE_ENV production
+ENV PORT 3000
 EXPOSE 3000
-## Run the development server.
-CMD [ -d "node_modules" ] && npm run start || npm run install && npm run start --host 0.0.0.0
 
-# Stage 2b: Production build mode.
-FROM base as prod
-## Set the working directory to `/opt/docusaurus`.
-WORKDIR /opt/docusaurus
-## Copy over the source code.
-COPY . /opt/docusaurus/
-## Install dependencies with `--immutable` to ensure reproducibility.
+COPY package.json .
+COPY package-lock.json .
+
 RUN npm ci
-## Build the static site.
+
+COPY . .
+
 RUN npm run build
 
-# Stage 3a: Serve with `docusaurus serve`.
-FROM prod as serve
-## Expose the port that Docusaurus will run on.
-EXPOSE 3000
-## Run the production server.
-CMD ["npm", "run", "serve", "--host 0.0.0.0", "--no-open"]
+CMD [ "npm", "run", "serve" ]
+
