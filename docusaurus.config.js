@@ -101,6 +101,19 @@ const config = {
                             },
                         ],
                     },
+                    {
+                        title: "Legal",
+                        items: [
+                            {
+                                label: "Imprint",
+                                to: "https://l3montree.com/impressum"
+                            },
+                            {
+                                label: "Private Policy",
+                                to: "https://l3montree.com/datenschutz"
+                            }
+                        ]
+                    }
                 ],
             },
             prism: {
